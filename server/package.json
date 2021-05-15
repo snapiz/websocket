@@ -1,7 +1,7 @@
 {
   "name": "@timada/websocket-server",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/server.worker.js",
   "license": "MIT",
   "scripts": {
