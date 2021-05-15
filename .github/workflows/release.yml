@@ -16,31 +16,33 @@ jobs:
           node-version: '12.x'
       - run: yarn audit
 
-  # release:
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: production
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         persist-credentials: false
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '12.x'
-  #     - uses: actions/cache@v2
-  #       id: yarn-cache
-  #       with:
-  #         path: '**/node_modules'
-  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-  #     - name: Install dependencies
-  #       if: steps.yarn-cache.outputs.cache-hit != 'true'
-  #       run: yarn install --frozen-lockfile
-  #     - name: Build
-  #       run: yarn build && yarn build:types && yarn build:clean
-  #     - name: Create package
-  #       run: mkdir build && cp -a dist build/ && cp package.json build/
-  #     - name: Release
-  #       env:
-  #         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  #       run: npx semantic-release
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      - name: Build react & server
+        run: yarn build
+      - name: Create react package
+        run: mkdir react-build && cp -a react/dist react-build/ && cp react/package.json react-build/
+      - name: Create server package
+        run: mkdir server-build && cp -a server/dist server-build/ && cp server/package.json server-build/
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

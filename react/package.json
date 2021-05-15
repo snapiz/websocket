@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:types": "tsc && mv dist/lib.d.ts dist/ui.d.ts",
+    "build": "yarn build:vite && yarn build:types && yarn build:clean",
+    "build:vite": "vite build",
+    "build:types": "tsc && mv dist/lib.d.ts dist/websocket.d.ts",
     "build:clean": "rm -rf dist/main.d.ts dist/App.d.ts",
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0 --no-ignore",
     "lint:fix": "yarn lint --fix",
-    "postversion": "cp -r package.json .."
+    "postversion": "cp -r package.json ../react/"
   },
   "files": [
     "dist"
