@@ -1,0 +1,22 @@
+version: "3.4"
+
+services:
+  redis:
+    image: redis:6.2.1-alpine
+    ports:
+      - 6379:6379
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:12.0.3
+    ports:
+      - "3000:8443"
+    volumes:
+      - ./certs:/etc/x509/https
+      - keycloak-data:/opt/jboss/keycloak/standalone/data
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=changeit
+      - KEYCLOAK_FRONTEND_URL=https://sso.timada.dev:3000/auth/
+
+volumes:
+  keycloak-data: ~
