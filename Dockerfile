@@ -1,4 +1,4 @@
-FROM node:12-slim
+FROM node:12-alpine
 
 ENV NODE_ENV=production
 
@@ -13,4 +13,4 @@ COPY server/dist/* ./
 
 EXPOSE 80
 
-CMD [ "node", "server.worker.js" ]
+CMD [ "node", "server.js" ]

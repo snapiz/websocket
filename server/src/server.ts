@@ -2,6 +2,8 @@ import path from "path";
 import dotenv from "dotenv";
 import uWebSockets from "uWebSockets.js";
 import { TextDecoder } from "util";
+import { Worker, isMainThread } from "worker_threads";
+import os from "os";
 import { configureTodos, subscribe } from "./broker";
 import { getSubFromJwt } from "./utils";
 
@@ -19,15 +21,15 @@ interface SubscribeData {
 }
 
 const PORT = process.env.WSS_PORT || 80;
+const WITH_SSL = process.env.WSS_SSL_KEY && process.env.WSS_SSL_CERT;
 
 const run = (): void => {
-  const app =
-    process.env.WSS_SSL_KEY && process.env.WSS_SSL_CERT
-      ? uWebSockets.SSLApp({
-          key_file_name: process.env.WSS_SSL_KEY,
-          cert_file_name: process.env.WSS_SSL_CERT,
-        })
-      : uWebSockets.App();
+  const app = WITH_SSL
+    ? uWebSockets.SSLApp({
+        key_file_name: process.env.WSS_SSL_KEY,
+        cert_file_name: process.env.WSS_SSL_CERT,
+      })
+    : uWebSockets.App();
 
   if (process.env.WSS_REDIS_URL.endsWith(".dev")) {
     configureTodos(app);
@@ -81,8 +83,13 @@ const run = (): void => {
     });
 };
 
-export default run;
-
-if (process.env.WSS_REDIS_URL.endsWith(".dev")) {
+if (WITH_SSL) {
+  run();
+} else if (isMainThread) {
+  os.cpus().forEach(() => {
+    /* Spawn a new thread running this source file */
+    new Worker(__filename);
+  });
+} else {
   run();
 }

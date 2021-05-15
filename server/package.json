@@ -2,7 +2,7 @@
   "name": "@timada/websocket-server",
   "private": true,
   "version": "1.0.2",
-  "main": "dist/server.worker.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
