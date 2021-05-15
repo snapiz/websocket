@@ -37,6 +37,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build react & server
         run: yarn build
+      - name: Create empty certs files
+        run: mkdir certs && touch certs/tls.key && touch certs/tls.crt
       - name: Create react package
         run: mkdir react-build && cp -a react/dist react-build/ && cp react/package.json react-build/
       - name: Create server package
