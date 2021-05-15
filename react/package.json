@@ -10,7 +10,7 @@
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0 --no-ignore",
     "lint:fix": "yarn lint --fix",
-    "postversion": "cp -r package.json ../react/"
+    "postversion": "cp -r package.json ../"
   },
   "files": [
     "dist"
