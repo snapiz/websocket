@@ -41,8 +41,16 @@ jobs:
         run: yarn build
       - name: Create react package
         run: mkdir react/build && cp -a react/dist react/build/ && cp react/package.json react/build/
+      - name: Test
+        run: docker -v
+      # - name: Build docker server image
+      #   uses: docker/build-action@v1
+      #   with:
+      #     path: .
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
         run: npx semantic-release

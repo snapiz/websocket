@@ -7,6 +7,13 @@ plugins:
     pkgRoot: "react/build"
   - path: "@semantic-release/npm"
     pkgRoot: "server"
+  # - path: "@eclass/semantic-release-docker"
+  #   baseImageName: "websocket"
+  #   registries:
+  #     - url: "docker.io"
+  #       imageName: "docker.io/timada0/websocket"
+  #       user: "DOCKER_HUB_USERNAME"
+  #       password: "DOCKER_HUB_ACCESS_TOKEN"
   - path: "@semantic-release/github"
     assets:
       - "react/dist/**/*.js"
