@@ -4,9 +4,9 @@ plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
   - path: "@semantic-release/npm"
-    pkgRoot: "react-build"
+    pkgRoot: "react/build"
   - path: "@semantic-release/npm"
-    pkgRoot: "server-build"
+    pkgRoot: "server"
   - path: "@semantic-release/github"
     assets:
       - "react/dist/**/*.js"

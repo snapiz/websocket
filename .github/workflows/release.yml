@@ -40,9 +40,7 @@ jobs:
       - name: Build react & server
         run: yarn build
       - name: Create react package
-        run: mkdir react-build && cp -a react/dist react-build/ && cp react/package.json react-build/
-      - name: Create server package
-        run: mkdir server-build && cp -a server/dist server-build/ && cp server/package.json server-build/
+        run: mkdir react/build && cp -a react/dist react/build/ && cp react/package.json react/build/
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

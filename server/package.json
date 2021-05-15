@@ -8,8 +8,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0 --no-ignore",
-    "lint:fix": "yarn lint --fix",
-    "postversion": "cp -r package.json ../server/"
+    "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
     "@types/node": "^12.20.13",
