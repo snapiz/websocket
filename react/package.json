@@ -1,6 +1,6 @@
 {
   "name": "@timada/websocket",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "dev": "vite",
     "build": "yarn build:vite && yarn build:types && yarn build:clean",
