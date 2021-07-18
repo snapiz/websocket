@@ -57,7 +57,11 @@ export async function getSubFromJwt(
 
   const { payload } = await jwtVerify(
     token,
-    createPublicKey(process.env.WSS_KEYCLOAK_PK),
+    createPublicKey(
+      "-----BEGIN PUBLIC KEY-----\n" +
+        process.env.WSS_KEYCLOAK_PK +
+        "\n-----END PUBLIC KEY-----"
+    ),
     {
       algorithms: [header.alg],
     }
